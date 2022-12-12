@@ -1,0 +1,29 @@
+version: 1
+default_environment: dev
+project_id: 8993cdb2-988e-4bbb-a368-4ad9c7cf73bd
+environments:
+- name: dev
+- name: staging
+- name: prod
+plugins:
+  extractors:
+  - name: tap-salesforce
+    variant: meltanolabs
+    pip_url: git+https://github.com/meltanolabs/tap-salesforce.git@v1.5.0
+    config:
+      username: venucops09@gmail.com
+      client_id: 3MVG9n_HvETGhr3DbAAArsmewzWH8ebQIsNpVEyKExXwlT_.xfG0VygrK9POlQmGReMrCZKm8hMgJeGK5EERZ
+      start_date: '2017-11-02T00:00:00Z'
+    select:
+    - Account.AccountNumber
+    - Account.Name
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
+  - name: target-gcs
+    variant: datateer
+    pip_url: git+https://github.com/Datateer/target-gcs.git
+    config:
+      bucket_name: staging.sylvan-bonbon-367907.appspot.com
+      credentials_file: sylvan-bonbon-367907-1b1f0ceb5aca.json
